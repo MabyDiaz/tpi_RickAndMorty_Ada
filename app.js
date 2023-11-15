@@ -138,7 +138,7 @@ const pagination = async () => {
     }
   });
 
-  // Agregar funcionalidad para ir a una página específica
+  // Ir a una página específica
   const goToPageButton = document.getElementById("go-to-page");
   const pageInput = document.getElementById("page-input");
 
