@@ -22,11 +22,11 @@
       <a href="/" class="brand-logo">Rick And Morty</a>
 
       <ul class="nav-list">
-        <li id="allCharacters"><a>Todos</a></li>
-        <li id="women"><a>Mujeres</a></li>
-        <li id="men"><a>Hombres</a></li>
-        <li id="genderless"><a>Sin Género</a></li>
-        <li id="unknown"><a>No Se Sabe</a></li>
+        <li id="allCharacters"><a href="#">Todos</a></li>
+        <li id="women"><a href="#">Mujeres</a></li>
+        <li id="men"><a href="#">Hombres</a></li>
+        <li id="genderless"><a href="#">Sin Género</a></li>
+        <li id="unknown"><a href="#">No Se Sabe</a></li>
       </ul>
 
     </div>
@@ -61,9 +61,21 @@
 
   <footer>
     <div class="footer-container">
-      <p>@ 2023 Copyright MabyDíaz</p>
+      <div class="copyright">
+        &copy; <span id="current-year"></span> Copyright MabyDíaz
+      </div>
+
     </div>
   </footer>
+
+  <!-- Modal para el boton Ver Más -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div id="modal-content-container"></div>
+      <button id="back-button">Volver</button>
+      <span class="close">&times;</span>
+    </div>
+  </div>
 
   <script src="./app.js"></script>
 </body>

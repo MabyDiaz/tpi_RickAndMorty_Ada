@@ -79,11 +79,11 @@ const printData = (arr) => {
                 <p>Origen: ${character.origin.name}</p>
                 <p>Locación: ${character.location.name}</p>               
             </div>
-            <div>
-            <a class="card-footer" href="https://rickandmortyapi.com/api/character?id=${
+            <div class="card-footer">
+            <button class="more-info-button" data-id="${
               character.id
-            }" target="_blank">Ver más...</a>
-            </div>
+            }">Ver mas</button>
+          </div>
         </div>
     </div>`;
   });
@@ -214,5 +214,78 @@ allCharacters.addEventListener("click", () => {
 
   printData(arr);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const yearSpan = document.getElementById("current-year");
+  yearSpan.textContent = new Date().getFullYear();
+});
+
+// Modal
+const modal = document.getElementById("myModal");
+const closeModalButton = document.querySelector(".close");
+const modalContentContainer = document.getElementById(
+  "modal-content-container"
+);
+
+// Función para obtener y mostrar la información de Ver Más
+const showDetailsBtn = async (characterId) => {
+  const moreInfoURL = `https://rickandmortyapi.com/api/character/${characterId}`;
+  try {
+    const response = await fetch(moreInfoURL);
+    const characterDetail = await response.json();
+
+    modalContentContainer.innerHTML = `
+    <div class="modal-details-content">
+    <div class="modal-text-content">
+      <h2 class="modal-name">${characterDetail.name}</h2>
+      <p class="modal-info">Género: ${characterDetail.gender}</p>
+      <p class="modal-info">Especie: ${characterDetail.species}</p>     
+      <p class="modal-info">Estatus: ${characterDetail.status}</p>
+      <p class="modal-info">Origen: ${characterDetail.origin.name}</p>
+      <p class="modal-info">Locación: ${characterDetail.location.name}</p>   
+    </div>
+    <div class="modal-image-content">
+      <img src="${characterDetail.image}" alt="${characterDetail.name}">
+    </div>
+  </div>
+    `;
+
+    console.log(characterDetail);
+  } catch (error) {
+    console.error(
+      "Error al obtener la información detallada del personaje",
+      error
+    );
+  }
+};
+
+//  Eventlistener que escucha el evento "click"
+root.addEventListener("click", async (e) => {
+  const moreInfoButton = e.target.closest(".more-info-button");
+  if (moreInfoButton) {
+    const characterId = moreInfoButton.dataset.id;
+    await showDetailsBtn(characterId);
+    modal.style.display = "block";
+  }
+});
+
+// Cierra el modal al hacer clic en el botón "volver"
+const backButton = document.getElementById("back-button");
+
+backButton.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// Cierra el modal al hacer clic en la "x"
+closeModalButton.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// Cierra el modal si se hace clic fuera de él
+// window.addEventListener("click", (e) => {
+//   if (e.target === modal) {
+//     modal.style.display = "none";
+//   }
+// });
 
 pagination();
